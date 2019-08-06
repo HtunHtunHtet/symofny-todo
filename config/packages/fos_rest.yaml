@@ -16,6 +16,7 @@ fos_rest:
   body_listener: true
   exception:
     enabled: true
+    exception_controller: 'fos_rest.exception.controller:showAction'
   param_fetcher_listener: true
   view:
     view_response_listener: 'force'

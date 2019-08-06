@@ -6,3 +6,13 @@ lists:
   type      : rest
   resource  : App\Controller\ListController
   prefix    : api
+
+tasks:
+  type      : rest
+  resource  : App\Controller\TaskController
+  prefix    : api
+
+notes:
+  type      : rest
+  resource  : App\Controller\NoteController
+  prefix    : api
