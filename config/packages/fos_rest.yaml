@@ -13,8 +13,10 @@ fos_rest:
   format_listener:
     rules:
       - { path: '^/', priorities: ['json'], fallback_format: json}
+  body_listener: true
   exception:
     enabled: true
+  param_fetcher_listener: true
   view:
     view_response_listener: 'force'
     formats:
