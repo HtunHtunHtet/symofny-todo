@@ -2,19 +2,40 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use FOS\RestBundle\Controller\AbstractFOSRestController;
 
-class ListController extends AbstractController
+
+class ListController extends AbstractFOSRestController
 {
-    /**
-     * @Route("/list", name="list")
-     */
-    public function index()
-    {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/ListController.php',
-        ]);
-    }
+	
+	public function getListsAction()
+	{
+	
+	}
+	
+	public function getListAction(int $id)
+	{
+	
+	}
+	
+	public function postListsAction()
+	{
+	
+	}
+	
+	public function getListTasksAction(int $id)
+	{
+	
+	}
+	
+	public function putListsAction()
+	{
+	
+	}
+	
+	public function toggleListsAction(int $id)
+	{
+	
+	}
+    
 }
