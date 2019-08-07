@@ -7,7 +7,9 @@ use App\Entity\Task;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
+use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\View\View;
+use PhpParser\Node\Param;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest;
 
@@ -26,6 +28,11 @@ class TaskController extends AbstractFOSRestController
 	
 		$this->taskRepository = $taskRepository;
 		$this->entityManager  = $entityManager;
+	}
+	
+	public function getTaskActions(Task $task)
+	{
+		return $this->view($task , Response::HTTP_OK);
 	}
 	
 	public function getTaskNotesAction(Task $task)
@@ -74,25 +81,28 @@ class TaskController extends AbstractFOSRestController
 	
 	/**
 	 *
-	 * @Rest\RequestParam(name="note", description="Note for the task", nullable=false)
+	 * @Rest\RequestParam(name="note", description="Note for the task", nullable=false)s
+	 * @param ParamFetcher $paramFetcher
 	 * @param Task $task
 	 * @return View
 	 */
 	
-	public function postTaskNoteAction(Task $task)
+	public function postTaskNoteAction(ParamFetcher $paramFetcher, Task $task)
 	{
-		
-		if($task){
-			$note = new Note();
-			$note   ->setNote($note);
-			$note   ->setTask($task);
-			
-			$task->addNote($note);
-			
-			$this->entityManager->persist($note);
-			$this->entityManager->flush();
-			
-			return $this->view($note, Response::HTTP_OK);
+		$noteString  = $paramFetcher-> get('note');
+		if($noteString){
+			if($task){
+				$note = new Note();
+				$note   ->setNote($noteString);
+				$note   ->setTask($task);
+				
+				$task->addNote($note);
+				
+				$this->entityManager->persist($note);
+				$this->entityManager->flush();
+				
+				return $this->view($note, Response::HTTP_OK);
+			}
 		}
 		return $this->view(['message' => 'something went wrong'], Response::HTTP_INTERNAL_SERVER_ERROR);
 	}

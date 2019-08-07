@@ -37,7 +37,7 @@ class Task
     private $taskList;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="task")
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="task", cascade={"REMOVE"})
      */
     private $note;
 
